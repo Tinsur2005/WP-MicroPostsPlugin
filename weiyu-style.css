@@ -1,0 +1,523 @@
+/**
+ * WP微语插件 - 前台样式文件
+ * 
+ * 整体风格：简约清新、轻量化文艺风
+ * 设计特点：卡片布局、圆角设计、轻微阴影、柔和hover动效
+ * 适配：电脑、平板、手机所有设备
+ */
+
+/* ===== 容器样式 ===== */
+.weiyu-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ===== 页面头部 ===== */
+.weiyu-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.weiyu-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 14px 0;
+}
+
+.weiyu-subtitle {
+    font-size: 1.6rem;
+    color: #888;
+    margin: 0 0 14px 0;
+    font-weight: 400;
+}
+
+.weiyu-stats {
+    font-size: 1.3rem;
+    color: #999;
+    margin: 0;
+}
+
+/* ===== 微语列表 ===== */
+.weiyu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ===== 微语卡片 ===== */
+.weiyu-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+/* 卡片悬浮动效 */
+.weiyu-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== 用户信息区域 ===== */
+.weiyu-author {
+    margin-bottom: 16px;
+}
+
+/* 用户元信息（昵称+时间） */
+.weiyu-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 昵称 */
+.weiyu-nickname {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 发布时间 */
+.weiyu-time {
+    font-size: 1.3rem;
+    color: #999;
+    margin-top: 6px;
+}
+
+/* ===== 微语正文内容 ===== */
+.weiyu-content {
+    font-size: 1.5rem;
+    line-height: 2.2;
+    color: #333;
+    word-break: break-word;
+}
+
+/* ===== 空数据提示 ===== */
+.weiyu-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fafafa;
+    border-radius: 16px;
+}
+
+.weiyu-empty p {
+    font-size: 1rem;
+    color: #999;
+    margin: 0;
+}
+
+/* ===== 加载状态 ===== */
+.weiyu-loading {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 1.2rem;
+    color: #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 加载动画 */
+.weiyu-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #409eff;
+    border-radius: 50%;
+    animation: weiyu-spin 1s linear infinite;
+}
+
+@keyframes weiyu-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 卡片入场动画 */
+.weiyu-card-animate {
+    animation: weiyu-card-in 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes weiyu-card-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== 分页样式 ===== */
+.weiyu-pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.weiyu-pagination ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    gap: 6px;
+}
+
+.weiyu-pagination li {
+    margin: 0;
+}
+
+.weiyu-pagination a,
+.weiyu-pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* 普通分页链接 */
+.weiyu-pagination a {
+    color: #666;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+}
+
+.weiyu-pagination a:hover {
+    color: #fff;
+    background: #409eff;
+    border-color: #409eff;
+}
+
+/* 禁用状态 */
+.weiyu-pagination span.page-numbers {
+    color: #ccc;
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+/* 当前页（确保最高优先级） */
+.weiyu-pagination span.current,
+.weiyu-pagination span.page-numbers.current {
+    color: #fff !important;
+    background: #409eff !important;
+    border-color: #409eff !important;
+}
+
+/* ===== 深色主题兼容 ===== */
+/* 支持多种主题切换方式 */
+@media (prefers-color-scheme: dark),
+       (prefers-color-scheme: dark) {
+    
+    .weiyu-title {
+        color: #fff;
+    }
+    
+    .weiyu-subtitle {
+        color: #999;
+    }
+    
+    .weiyu-stats {
+        color: #888;
+    }
+    
+    .weiyu-card {
+        background: #2d2d2d;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .weiyu-card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .weiyu-nickname {
+        color: #fff;
+    }
+    
+    .weiyu-time {
+        color: #888;
+    }
+    
+    .weiyu-content {
+        color: #ddd;
+    }
+    
+    .weiyu-empty {
+        background: #2d2d2d;
+    }
+    
+    .weiyu-empty p {
+        color: #888;
+    }
+    
+    .weiyu-loading {
+        color: #888;
+    }
+    
+    .weiyu-pagination a {
+        color: #ccc;
+        background: #333;
+        border-color: #555;
+    }
+    
+    .weiyu-pagination a:hover {
+        color: #fff;
+        background: #409eff;
+        border-color: #409eff;
+    }
+    
+    .weiyu-pagination span.page-numbers {
+        color: #555;
+        background: #333;
+        border-color: #555;
+    }
+}
+
+/* 支持主题自定义类名（常见主题夜间模式类名） */
+body.dark .weiyu-title,
+body.theme-dark .weiyu-title,
+body.night-mode .weiyu-title,
+body[class*="dark"] .weiyu-title,
+body[data-theme="dark"] .weiyu-title {
+    color: #fff;
+}
+
+body.dark .weiyu-subtitle,
+body.theme-dark .weiyu-subtitle,
+body.night-mode .weiyu-subtitle,
+body[class*="dark"] .weiyu-subtitle,
+body[data-theme="dark"] .weiyu-subtitle {
+    color: #999;
+}
+
+body.dark .weiyu-stats,
+body.theme-dark .weiyu-stats,
+body.night-mode .weiyu-stats,
+body[class*="dark"] .weiyu-stats,
+body[data-theme="dark"] .weiyu-stats {
+    color: #888;
+}
+
+body.dark .weiyu-card,
+body.theme-dark .weiyu-card,
+body.night-mode .weiyu-card,
+body[class*="dark"] .weiyu-card,
+body[data-theme="dark"] .weiyu-card {
+    background: #2d2d2d;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .weiyu-card:hover,
+body.theme-dark .weiyu-card:hover,
+body.night-mode .weiyu-card:hover,
+body[class*="dark"] .weiyu-card:hover,
+body[data-theme="dark"] .weiyu-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .weiyu-nickname,
+body.theme-dark .weiyu-nickname,
+body.night-mode .weiyu-nickname,
+body[class*="dark"] .weiyu-nickname,
+body[data-theme="dark"] .weiyu-nickname {
+    color: #fff;
+}
+
+body.dark .weiyu-time,
+body.theme-dark .weiyu-time,
+body.night-mode .weiyu-time,
+body[class*="dark"] .weiyu-time,
+body[data-theme="dark"] .weiyu-time {
+    color: #888;
+}
+
+body.dark .weiyu-content,
+body.theme-dark .weiyu-content,
+body.night-mode .weiyu-content,
+body[class*="dark"] .weiyu-content,
+body[data-theme="dark"] .weiyu-content {
+    color: #ddd;
+}
+
+body.dark .weiyu-empty,
+body.theme-dark .weiyu-empty,
+body.night-mode .weiyu-empty,
+body[class*="dark"] .weiyu-empty,
+body[data-theme="dark"] .weiyu-empty {
+    background: #2d2d2d;
+}
+
+body.dark .weiyu-empty p,
+body.theme-dark .weiyu-empty p,
+body.night-mode .weiyu-empty p,
+body[class*="dark"] .weiyu-empty p,
+body[data-theme="dark"] .weiyu-empty p {
+    color: #888;
+}
+
+body.dark .weiyu-loading,
+body.theme-dark .weiyu-loading,
+body.night-mode .weiyu-loading,
+body[class*="dark"] .weiyu-loading,
+body[data-theme="dark"] .weiyu-loading {
+    color: #888;
+}
+
+body.dark .weiyu-spinner,
+body.theme-dark .weiyu-spinner,
+body.night-mode .weiyu-spinner,
+body[class*="dark"] .weiyu-spinner,
+body[data-theme="dark"] .weiyu-spinner {
+    border-color: #444;
+    border-top-color: #409eff;
+}
+
+body.dark .weiyu-pagination a,
+body.theme-dark .weiyu-pagination a,
+body.night-mode .weiyu-pagination a,
+body[class*="dark"] .weiyu-pagination a,
+body[data-theme="dark"] .weiyu-pagination a {
+    color: #ccc;
+    background: #333;
+    border-color: #555;
+}
+
+body.dark .weiyu-pagination span.page-numbers,
+body.theme-dark .weiyu-pagination span.page-numbers,
+body.night-mode .weiyu-pagination span.page-numbers,
+body[class*="dark"] .weiyu-pagination span.page-numbers,
+body[data-theme="dark"] .weiyu-pagination span.page-numbers {
+    color: #555;
+    background: #333;
+    border-color: #555;
+}
+
+body.dark .weiyu-pagination span.current,
+body.theme-dark .weiyu-pagination span.current,
+body.night-mode .weiyu-pagination span.current,
+body[class*="dark"] .weiyu-pagination span.current,
+body[data-theme="dark"] .weiyu-pagination span.current {
+    color: #fff !important;
+    background: #409eff !important;
+    border-color: #409eff !important;
+}
+
+/* ===== 响应式适配 ===== */
+
+/* 平板设备（768px - 992px） */
+@media (max-width: 992px) {
+    .weiyu-container {
+        padding: 30px 20px;
+    }
+    
+    .weiyu-title {
+        font-size: 2.8rem;
+    }
+    
+    .weiyu-subtitle {
+        font-size: 1.4rem;
+    }
+    
+    .weiyu-stats {
+        font-size: 1.1rem;
+    }
+    
+    .weiyu-nickname {
+        font-size: 1.3rem;
+    }
+    
+    .weiyu-time {
+        font-size: 1.1rem;
+    }
+    
+    .weiyu-content {
+        font-size: 1.4rem;
+    }
+}
+
+/* 手机设备（小于768px） */
+@media (max-width: 768px) {
+    .weiyu-container {
+        padding: 20px 15px;
+    }
+    
+    .weiyu-title {
+        font-size: 2.5rem;
+    }
+    
+    .weiyu-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .weiyu-stats {
+        font-size: 1rem;
+    }
+    
+    .weiyu-card {
+        padding: 18px;
+    }
+    
+    .weiyu-nickname {
+        font-size: 1.3rem;
+    }
+    
+    .weiyu-time {
+        font-size: 1.1rem;
+    }
+    
+    .weiyu-content {
+        font-size: 1.4rem;
+        line-height: 2;
+    }
+    
+    .weiyu-pagination a,
+    .weiyu-pagination span {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 小屏手机（小于480px） */
+@media (max-width: 480px) {
+    .weiyu-container {
+        padding: 15px 12px;
+    }
+    
+    .weiyu-title {
+        font-size: 2rem;
+    }
+    
+    .weiyu-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .weiyu-stats {
+        font-size: 0.95rem;
+    }
+    
+    .weiyu-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .weiyu-nickname {
+        font-size: 1.2rem;
+    }
+    
+    .weiyu-time {
+        font-size: 1rem;
+    }
+    
+    .weiyu-content {
+        font-size: 1.25rem;
+        line-height: 1.9;
+    }
+}
