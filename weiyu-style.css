@@ -104,7 +104,7 @@
 }
 
 .weiyu-empty p {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #999;
     margin: 0;
 }
@@ -209,6 +209,29 @@
     color: #fff !important;
     background: #409eff !important;
     border-color: #409eff !important;
+}
+
+/* ===== 版权信息样式 ===== */
+.weiyu-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.weiyu-footer p {
+    font-size: 1.2rem;
+    color: #999;
+    margin: 0;
+}
+
+.weiyu-footer a {
+    color: #409eff;
+    text-decoration: none;
+}
+
+.weiyu-footer a:hover {
+    text-decoration: underline;
 }
 
 /* ===== 深色主题兼容 ===== */
@@ -407,6 +430,46 @@ body[data-theme="dark"] .weiyu-pagination span.current {
     color: #fff !important;
     background: #409eff !important;
     border-color: #409eff !important;
+}
+
+body.dark .weiyu-empty,
+body.theme-dark .weiyu-empty,
+body.night-mode .weiyu-empty,
+body[class*="dark"] .weiyu-empty,
+body[data-theme="dark"] .weiyu-empty {
+    background: #333;
+}
+
+body.dark .weiyu-empty p,
+body.theme-dark .weiyu-empty p,
+body.night-mode .weiyu-empty p,
+body[class*="dark"] .weiyu-empty p,
+body[data-theme="dark"] .weiyu-empty p {
+    color: #666;
+}
+
+body.dark .weiyu-footer,
+body.theme-dark .weiyu-footer,
+body.night-mode .weiyu-footer,
+body[class*="dark"] .weiyu-footer,
+body[data-theme="dark"] .weiyu-footer {
+    border-color: #555;
+}
+
+body.dark .weiyu-footer p,
+body.theme-dark .weiyu-footer p,
+body.night-mode .weiyu-footer p,
+body[class*="dark"] .weiyu-footer p,
+body[data-theme="dark"] .weiyu-footer p {
+    color: #666;
+}
+
+body.dark .weiyu-footer a,
+body.theme-dark .weiyu-footer a,
+body.night-mode .weiyu-footer a,
+body[class*="dark"] .weiyu-footer a,
+body[data-theme="dark"] .weiyu-footer a {
+    color: #60a5fa;
 }
 
 /* ===== 响应式适配 ===== */

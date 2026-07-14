@@ -40,12 +40,10 @@ $page_title = get_the_title();
         <?php 
         // 获取页面浏览量
         $view_count = get_option('weiyu_page_views', 0);
-        // 增加浏览量（仅对非管理员用户统计）
-        if (!current_user_can('manage_options')) {
-            update_option('weiyu_page_views', $view_count + 1);
-        }
+        // 增加浏览量（打开页面一次就+1）
+        update_option('weiyu_page_views', $view_count + 1);
         ?>
-        <p class="weiyu-stats" data-view-count="<?php echo esc_attr($view_count); ?>">共 <?php echo esc_html($view_count); ?> 人浏览 | 共 <?php echo esc_html($total); ?> 条微语</p>
+        <p class="weiyu-stats" data-view-count="<?php echo esc_attr($view_count); ?>">共 <?php echo esc_html($view_count); ?> 次浏览 | 共 <?php echo esc_html($total); ?> 条微语</p>
         <?php 
         // 隐藏的总页数元素，供JavaScript使用
         if ($total_pages > 1) : ?>
