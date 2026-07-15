@@ -72,6 +72,9 @@ class WP_Weiyu_Plugin {
         
         // 注册表单处理钩子（使用admin_post方式，确保能正常重定向）
         add_action('admin_post_weiyu_save', array($this, 'handle_save_weiyu'));
+        
+        // 注册删除处理钩子（使用admin_post方式，确保能正常重定向）
+        add_action('admin_post_weiyu_delete', array($this, 'handle_delete_weiyu'));
     }
 
     /**
@@ -164,33 +167,6 @@ class WP_Weiyu_Plugin {
         }
         
         global $wpdb;
-        $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
-        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        
-        // 处理删除操作（带nonce验证）
-        if ($action === 'delete' && $id > 0) {
-            // 验证nonce防止CSRF攻击
-            if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'weiyu_delete_' . $id)) {
-                wp_die(__('非法操作，请求已被拒绝。'));
-            }
-            $this->delete_weiyu($id);
-            wp_redirect(admin_url('admin.php?page=weiyu-manager&message=deleted'));
-            exit;
-        }
-        
-        // 处理批量删除操作（带nonce验证）
-        if (isset($_POST['delete_all']) && isset($_POST['weiyu_ids'])) {
-            // 验证nonce防止CSRF攻击
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'weiyu_batch_delete')) {
-                wp_die(__('非法操作，请求已被拒绝。'));
-            }
-            $weiyu_ids = array_map('intval', $_POST['weiyu_ids']);
-            foreach ($weiyu_ids as $weiyu_id) {
-                $this->delete_weiyu($weiyu_id);
-            }
-            wp_redirect(admin_url('admin.php?page=weiyu-manager&message=deleted'));
-            exit;
-        }
         
         // 获取所有微语，按时间倒序排列
         $weiyu_list = $wpdb->get_results(
@@ -229,8 +205,9 @@ class WP_Weiyu_Plugin {
             ?>
             
             <?php if (!empty($weiyu_list)) : ?>
-            <form method="post" action="">
+            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
                 <?php wp_nonce_field('weiyu_batch_delete'); ?>
+                <input type="hidden" name="action" value="weiyu_delete">
                 <table class="wp-list-table widefat fixed striped">
                     <thead>
                         <tr>
@@ -257,7 +234,7 @@ class WP_Weiyu_Plugin {
                             <td>
                                 <a href="?page=weiyu-edit&amp;id=<?php echo esc_attr($weiyu['id']); ?>" class="edit">编辑</a>
                                 |
-                                <a href="?page=weiyu-manager&amp;action=delete&amp;id=<?php echo esc_attr($weiyu['id']); ?>&amp;_wpnonce=<?php echo esc_attr(wp_create_nonce('weiyu_delete_' . $weiyu['id'])); ?>" class="delete" onclick="return confirm('确定要删除这条微语吗？');">删除</a>
+                                <a href="<?php echo admin_url('admin-post.php'); ?>?action=weiyu_delete&amp;action=delete&amp;id=<?php echo esc_attr($weiyu['id']); ?>&amp;_wpnonce=<?php echo esc_attr(wp_create_nonce('weiyu_delete_' . $weiyu['id'])); ?>" class="delete" onclick="return confirm('确定要删除这条微语吗？');">删除</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -488,6 +465,43 @@ class WP_Weiyu_Plugin {
             </form>
         </div>
         <?php
+    }
+
+    /**
+     * 处理删除微语操作（使用admin_post方式）
+     */
+    public function handle_delete_weiyu() {
+        // 检查用户权限
+        if (!current_user_can('manage_options')) {
+            wp_die(__('您没有权限访问此页面。'));
+        }
+        
+        global $wpdb;
+        
+        // 处理单条删除
+        if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
+            $id = intval($_GET['id']);
+            // 验证nonce防止CSRF攻击
+            if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'weiyu_delete_' . $id)) {
+                wp_die(__('非法操作，请求已被拒绝。'));
+            }
+            $this->delete_weiyu($id);
+        }
+        
+        // 处理批量删除
+        if (isset($_POST['delete_all']) && isset($_POST['weiyu_ids'])) {
+            // 验证nonce防止CSRF攻击
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'weiyu_batch_delete')) {
+                wp_die(__('非法操作，请求已被拒绝。'));
+            }
+            $weiyu_ids = array_map('intval', $_POST['weiyu_ids']);
+            foreach ($weiyu_ids as $weiyu_id) {
+                $this->delete_weiyu($weiyu_id);
+            }
+        }
+        
+        wp_safe_redirect(admin_url('admin.php?page=weiyu-manager&message=deleted'));
+        exit();
     }
 
     /**
